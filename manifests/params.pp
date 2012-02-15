@@ -1,3 +1,34 @@
+# = Class: puppet::params
+#
+# Change the way this puppet module to manage puppet behaves.
+#
+# == Parameters:
+#
+# $user::           The user puppet is running as. Defaults to 'puppet'.
+#
+# $dir::            The default main configuration directory for puppet.
+#                   Defaults to '/etc/puppet'.
+#
+# $modules::        Path to the folder containing puppet modules.
+#                   Defaults to <main config dir>/modules.
+#
+# $common_modules:: Location of the common puppet module.
+#                   Defaults to <main modules dir>/common
+#
+# $environments::   Array of environments we need to setup.
+#                   Defaults to ['development','production' ]
+#
+# $ca::             Be the CA. Defaults to true.
+#
+# $passenger::      Run using passenger. Defaults to true.
+#
+# $apache_conf::    Main apache configuration directory.
+#
+# $approot::        Foreman application root. Defaults to <puppet dir>/rack.
+#
+# $ssldir::         Folder where to store ssl certs.
+#                   Defaults to /var/lib/puppet/ssl.
+#
 class puppet::params (
   $user                = 'puppet',
   $dir                 = '/etc/puppet',

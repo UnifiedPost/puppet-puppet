@@ -1,3 +1,7 @@
+# = Class: puppet::server::passenger
+#
+# Configure and install passenger
+#
 class puppet::server::passenger {
   include apache::ssl
   include ::passenger

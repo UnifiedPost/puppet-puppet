@@ -1,3 +1,7 @@
+# = Class: puppet::config
+#
+# Setup/configure puppet.
+#
 class puppet::config {
   file { $puppet::params::dir:
     ensure => directory,

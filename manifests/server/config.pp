@@ -1,3 +1,7 @@
+# = Class: puppet::server::config
+#
+# Configure and setup puppet and puppet master
+#
 class puppet::server::config inherits puppet::config {
   if $puppet::params::passenger  { include puppet::server::passenger }
 
