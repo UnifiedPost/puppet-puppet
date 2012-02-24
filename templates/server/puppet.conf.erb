@@ -4,6 +4,8 @@
     reports        = foreman
     external_nodes = /etc/puppet/node.rb
     node_terminus  = exec
+    factsignore    = .svn CVS .git *.markdown .*.swp
+    pluginsignore  = .svn CVS .git *.markdown .*.swp
 
 <% scope.lookupvar("puppet::params::environments").each do |env| -%>
 [<%= env %>]
