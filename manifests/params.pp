@@ -29,6 +29,10 @@
 # $ssldir::         Folder where to store ssl certs.
 #                   Defaults to /var/lib/puppet/ssl.
 #
+# == Todo:
+#
+# * Remove params that are not specific to the client. -> puppet::server::params
+#
 class puppet::params (
   $user                = 'puppet',
   $dir                 = '/etc/puppet',
@@ -42,7 +46,7 @@ class puppet::params (
   $ssl_dir             = '/var/lib/puppet/ssl'
 ) {
 
-  include foreman::params
+##  include foreman::params
 
 
   ## Setup defaults for vars that dont have a fixed str only default (undef).
@@ -54,9 +58,12 @@ class puppet::params (
     undef   => "${modules_path}/common",
     default => $common_modules,
   }
-  $apache_conf_dir = $apache_confdir ? {
-    undef   => $foreman::params::apache_conf_dir,
-    default => $apache_confdir,
+  if $apache_confdir == undef {
+    include foreman::params
+    $apache_conf_dir = $foreman::params::apache_conf_dir
+  }
+  else {
+    $apache_conf_dir = $apache_confdir
   }
 
   $app_root = $approot ? {
