@@ -1,13 +1,17 @@
 
 [master]
     autosign       = $confdir/autosign.conf { mode = 664 }
-    reports        = foreman
+    reports        = <%= scope.lookupvar("puppet::server::params::reports") %>
     external_nodes = /etc/puppet/node.rb
     node_terminus  = exec
     factsignore    = .svn CVS .git *.markdown .*.swp
     pluginsignore  = .svn CVS .git *.markdown .*.swp
 
-<% scope.lookupvar("puppet::params::environments").each do |env| -%>
+<% if has_variable?("puppet::server::params::ssl_dir") -%>
+    ssldir         = <%= scope.lookupvar("puppet::server::params::ssl_dir") %>
+<% end -%>
+
+<% scope.lookupvar("puppet::server::params::environments").each do |env| -%>
 [<%= env %>]
-    modulepath = <%= scope.lookupvar("puppet::params::modules_path") %>/<%= env %>:<%= scope.lookupvar("puppet::params::common_modules_path") %>
+    modulepath = <%= scope.lookupvar("puppet::server::params::modules_path") %>/<%= env %>:<%= scope.lookupvar("puppet::server::params::common_modules_path") %>
 <% end -%>

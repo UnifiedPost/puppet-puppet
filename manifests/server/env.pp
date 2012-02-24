@@ -4,8 +4,9 @@
 #
 #
 define puppet::server::env () {
-  require puppet::params
-  file { "${puppet::params::modules_path}/${name}":
+  require puppet::server::params
+
+  file { "${puppet::server::params::modules_path}/${name}":
     ensure => directory,
   }
 }
