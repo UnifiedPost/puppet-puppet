@@ -22,7 +22,7 @@
 #
 # $passenger::      Run using passenger. Defaults to true.
 #
-# $apache_conf::    Main apache configuration directory.
+# $apache_confdir:: Main apache configuration directory.
 #
 # $approot::        Foreman application root. Defaults to <puppet dir>/rack.
 #
