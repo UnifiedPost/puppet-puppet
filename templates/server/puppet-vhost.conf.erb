@@ -23,7 +23,7 @@ Listen 8140
 	RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e
 
 	RackAutoDetect On
-  DocumentRoot <%= scope.lookupvar("puppet::server::params::app_root") %>/public/
+  DocumentRoot <%= scope.lookupvar("puppet::server::params::doc_root") %>
   <Directory <%= scope.lookupvar("puppet::server::params::app_root") %>>
 		Options None
 		AllowOverride None

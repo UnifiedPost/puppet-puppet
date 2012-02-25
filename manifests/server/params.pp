@@ -49,6 +49,7 @@ class puppet::server::params (
     undef   => $puppet::params::app_root,
     default => $approot
   }
+  $doc_root = "${app_root}/public/"
 
   $ssl_cert = "${ssl_dir}/certs/${::fqdn}.pem"
   $ssl_cert_key = "${ssl_dir}/private_keys/${::fqdn}.pem"
