@@ -3,15 +3,15 @@ Listen 8140
 
 	SSLEngine on
 	SSLCipherSuite SSLv2:-LOW:-EXPORT:RC4+RSA
-	SSLCertificateFile      <%= scope.lookupvar("puppet::server::params::ssl_dir") %>/certs/<%= fqdn %>.pem
-	SSLCertificateKeyFile   <%= scope.lookupvar("puppet::server::params::ssl_dir") %>/private_keys/<%= fqdn %>.pem
-<% unless scope.lookupvar("puppet::server::params::ca") %> -%>
-	SSLCACertificateFile    <%= scope.lookupvar("puppet::server::params::ssl_dir") %>/certs/ca.pem
+	SSLCertificateFile      <%= scope.lookupvar("puppet::server::params::ssl_cert") %>
+	SSLCertificateKeyFile   <%= scope.lookupvar("puppet::server::params::ssl_cert_key" %>
+<% unless scope.lookupvar("puppet::server::params::ca") -%>
+	SSLCACertificateFile    <%= scope.lookupvar("puppet::server::params::ssl_noca_cert") %>
 <% else -%>
-	SSLCertificateChainFile <%= scope.lookupvar("puppet::server::params::ssl_dir") %>/ca/ca_crt.pem
-	SSLCACertificateFile    <%= scope.lookupvar("puppet::server::params::ssl_dir") %>/ca/ca_crt.pem
+	SSLCertificateChainFile <%= scope.lookupvar("puppet::server::params::ssl_chain") %>
+	SSLCACertificateFile    <%= scope.lookupvar("puppet::server::params::ssl_ca_cert") %>
 	# CRL checking should be enabled; if you have problems with Apache complaining about the CRL, disable the next line
-#	SSLCARevocationFile     <%= scope.lookupvar("puppet::server::params::ssl_dir") %>/ca/ca_crl.pem
+#	SSLCARevocationFile     <%= scope.lookupvar("puppet::server::params::ssl_ca_crl") %>
 <% end -%>
 	SSLVerifyClient optional
 	SSLVerifyDepth  1

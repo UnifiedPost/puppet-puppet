@@ -50,5 +50,11 @@ class puppet::server::params (
     default => $approot
   }
 
+  $ssl_cert = "${ssl_dir}/certs/${::fqdn}.pem"
+  $ssl_cert_key = "${ssl_dir}/private_keys/${::fqdn}.pem"
+  $ssl_noca_cert = "${ssl_dir}/certs/ca.pem"
+  $ssl_chain  = "${ssl_dir}/ca/ca_crt.pem"
+  $ssl_ca_cert = "${ssl_dir}/ca/ca_crt.pem"
+  $ssl_ca_crl = "${ssl_dir}/ca/ca_crl.pem"
 }
 
