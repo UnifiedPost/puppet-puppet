@@ -2,7 +2,7 @@
 #
 # Configure and install passenger
 #
-class puppet::server::passenger {
+class puppet::server::passenger inherits puppet::server::rack {
   include apache::ssl
   include ::passenger
 
@@ -21,16 +21,8 @@ class puppet::server::passenger {
     require     => Class['puppet::server::install']
   }
 
-  file {
-    [$puppet::server::params::app_root, "${puppet::server::params::app_root}/public", "${puppet::server::params::app_root}/tmp"]:
-      ensure => directory,
-      owner  => $puppet::server::params::user,
-  }
-  file {
-    "${puppet::server::params::app_root}/config.ru":
-      owner  => $puppet::server::params::user,
-      source => 'puppet:///modules/puppet/config.ru',
-      notify => Exec['restart_puppet'],
+  File["${puppet::server::params::app_root}/config.ru"] {
+    notify => Exec['restart_puppet'],
   }
 
 }
