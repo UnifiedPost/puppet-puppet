@@ -18,6 +18,7 @@ class puppet::server::config inherits puppet::config {
     creates => "${puppet::server::params::ssl_dir}/certs/${::fqdn}.pem",
     command => "puppetca --generate ${::fqdn}",
     path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+    require => File["${puppet::server::params::dir}/puppet.conf"],
   }
 
   # setup empty directories for our environments
