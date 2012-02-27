@@ -4,24 +4,32 @@
 #
 class puppet::server::config inherits puppet::config {
   require puppet::server::params
-  if $puppet::server::params::passenger  { include puppet::server::passenger }
+  $hostname            = $puppet::server::params::hostname
+  $ssl_cert            = $puppet::server::params::ssl_cert
+  $puppet_dir          = $puppet::server::params::dir
+  $environments        = $puppet::server::params::environments
+  $passenger           = $puppet::server::params::passenger
+  $modules_path        = $puppet::server::params::modules_path
+  $common_modules_path = $puppet::server::params::common_modules_path
 
-  File ["${puppet::server::params::dir}/puppet.conf"] {
+  if $passenger  { include puppet::server::passenger }
+
+  File ["${puppet_dir}/puppet.conf"] {
     content => template('puppet/puppet.conf.erb', 'puppet/server/puppet.conf.erb'),
   }
 
-  file { [$puppet::server::params::modules_path, $puppet::server::params::common_modules_path]:
-    ensure => directory,
+  file { [$modules_path, $common_modules_path]:
+    ensure => 'directory',
   }
 
   exec {'generate_ca_cert':
-    creates => "${puppet::server::params::ssl_dir}/certs/${::fqdn}.pem",
-    command => "puppetca --generate ${::fqdn}",
+    creates => $ssl_cert,
+    command => "puppetca --generate ${hostname}",
     path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-    require => File["${puppet::server::params::dir}/puppet.conf"],
+    require => File["${puppet_dir}/puppet.conf"],
   }
 
   # setup empty directories for our environments
-  puppet::server::env {$puppet::server::params::environments: }
+  puppet::server::env {$environments: }
 
 }

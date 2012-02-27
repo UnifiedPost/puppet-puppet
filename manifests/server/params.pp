@@ -26,7 +26,8 @@ class puppet::server::params (
   $apache_confdir = undef,
   $approot        = undef,
   $ssl_dir        = $puppet::params::ssl_dir,
-  $reports        = 'foreman'
+  $reports        = 'foreman',
+  $hostname       = $::fqdn
 ){
   require puppet::params
 
@@ -51,8 +52,8 @@ class puppet::server::params (
   }
   $doc_root = "${app_root}/public/"
 
-  $ssl_cert = "${ssl_dir}/certs/${::fqdn}.pem"
-  $ssl_cert_key = "${ssl_dir}/private_keys/${::fqdn}.pem"
+  $ssl_cert = "${ssl_dir}/certs/${hostname}.pem"
+  $ssl_cert_key = "${ssl_dir}/private_keys/${hostname}.pem"
   $ssl_noca_cert = "${ssl_dir}/certs/ca.pem"
   $ssl_chain  = "${ssl_dir}/ca/ca_crt.pem"
   $ssl_ca_cert = "${ssl_dir}/ca/ca_crt.pem"
