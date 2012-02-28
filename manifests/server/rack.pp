@@ -13,15 +13,15 @@
 class puppet::server::rack {
 
   require puppet::server::params
-  $owner = $puppet::server::params::user
-  $group = $puppet::server::params::group
+  $app_owner = $puppet::server::params::user
+  $app_group = $puppet::server::params::group
   $app_root = $puppet::server::params::app_root
   $doc_root = $puppet::server::params::doc_root
   $rack_config_source = $puppet::server::params::rack_config_source
 
   File {
-    owner => $user,
-    group => $group,
+    owner => $app_user,
+    group => $app_group,
   }
 
   file {$app_root:
