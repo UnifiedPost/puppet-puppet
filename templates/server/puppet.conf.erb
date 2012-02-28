@@ -11,6 +11,10 @@
     ssldir         = <%= scope.lookupvar("puppet::server::params::ssl_dir") %>
 <% end -%>
 
+    # Required for passenger
+    ssl_client_header = SSL_CLIENT_S_DN
+    ssl_client_verify_header = SSL_CLIENT_VERIFY
+
 <% scope.lookupvar("puppet::server::params::environments").each do |env| -%>
 [<%= env %>]
     modulepath = <%= scope.lookupvar("puppet::server::params::modules_path") %>/<%= env %>:<%= scope.lookupvar("puppet::server::params::common_modules_path") %>
