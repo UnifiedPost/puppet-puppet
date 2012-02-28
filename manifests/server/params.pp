@@ -68,5 +68,26 @@ class puppet::server::params (
   $ssl_ca_cert   = "${ssl_dir}/ca/ca_crt.pem"
   $ssl_ca_crl    = "${ssl_dir}/ca/ca_crl.pem"
 
+
+  ### Puppetmaster service configuration ###
+
+  $service = $::operatingsystem ? {
+    default => 'puppetmaster',
+  }
+  $service_pattern = $::operatingsystem ? {
+    /(?i:centos|redhat)/ => 'puppetmasterd',
+    /(?i:debian|ubuntu)/ => 'puppet master',
+    default              => 'puppet master',
+  }
+  $service_hasstatus = $::operatingsystem ? {
+    default => true
+  }
+  $service_hasrestart = $::operatingsystem ? {
+    default => true
+  }
+  $service_requires = $::operatingsystem ? {
+    default => []
+  }
+
 }
 
