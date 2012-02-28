@@ -8,7 +8,10 @@
 #
 class puppet::service::disabled inherits puppet::service {
 
-  Service['puppet'] {
+  require puppet::params
+  $service = $puppet::params::service
+
+  Service[$service] {
     ensure => 'stopped',
     enable => false,
   }
