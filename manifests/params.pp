@@ -71,4 +71,24 @@ class puppet::params (
     default => $approot,
   }
 
+  ### Puppet client service configuration ###
+
+  $service            = $::operatingsystem ? {
+    default => 'puppet',
+  }
+  $service_pattern    = $::operatingsystem ? {
+    /(?i:centos|redhat)/ => 'puppetd',
+    /(?i:debian|ubuntu)/ => 'puppet agent',
+    default              => 'puppet agent',
+  }
+  $service_hasstatus =  $::operatingsystem ? {
+    default => true
+  }
+  $service_hasrestart = $::operatingsystem ? {
+    default => true
+  }
+  $service_requires = $::operatingsystem ? {
+    default => []
+  }
+
 }
