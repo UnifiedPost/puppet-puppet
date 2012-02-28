@@ -7,7 +7,9 @@
 #
 # Most parameters are mirrored from puppet::params. These have been added:
 #
-# $rackconfig_source::     The config.ru file to run as a rack application.
+# $rackconfig_source::    The config.ru file to run as a rack application.
+#
+# $servername::           Hostname to use when setting up the server.
 #
 # == Sample Usage:
 #
@@ -31,7 +33,7 @@ class puppet::server::params (
   $rackconfig_source = undef,
   $ssl_dir           = $puppet::params::ssl_dir,
   $reports           = 'foreman',
-  $hostname          = $::fqdn
+  $servername        = $puppet::params::servername
 ){
   require puppet::params
 
@@ -59,6 +61,11 @@ class puppet::server::params (
   $rack_config_source =  $rackconfig_source ? {
     undef   => 'puppet:///modules/puppet/config.ru',
     default => $rackconfig_source,
+  }
+
+  $hostname = $servername ? {
+    undef   => $::fqdn,
+    default => $servername
   }
 
   $ssl_cert      = "${ssl_dir}/certs/${hostname}.pem"
