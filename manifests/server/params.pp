@@ -5,6 +5,9 @@
 #
 # == Parameters:
 #
+# Most parameters are mirrored from puppet::params. These have been added:
+#
+# $rackconfig_source::     The config.ru file to run as a rack application.
 #
 # == Sample Usage:
 #
@@ -16,18 +19,19 @@
 # * Remove params that are not server specific.
 #
 class puppet::server::params (
-  $user           = $puppet::params::user,
-  $dir            = $puppet::params::dir,
-  $modules        = undef,
-  $common_modules = undef,
-  $environments   = $puppet::params::environments,
-  $ca             = $puppet::params::ca,
-  $passenger      = $puppet::params::passenger,
-  $apache_confdir = undef,
-  $approot        = undef,
-  $ssl_dir        = $puppet::params::ssl_dir,
-  $reports        = 'foreman',
-  $hostname       = $::fqdn
+  $user              = $puppet::params::user,
+  $dir               = $puppet::params::dir,
+  $modules           = undef,
+  $common_modules    = undef,
+  $environments      = $puppet::params::environments,
+  $ca                = $puppet::params::ca,
+  $passenger         = $puppet::params::passenger,
+  $apache_confdir    = undef,
+  $approot           = undef,
+  $rackconfig_source = undef,
+  $ssl_dir           = $puppet::params::ssl_dir,
+  $reports           = 'foreman',
+  $hostname          = $::fqdn
 ){
   require puppet::params
 
@@ -51,6 +55,11 @@ class puppet::server::params (
     default => $approot
   }
   $doc_root = "${app_root}/public/"
+
+  $rack_config_source =  $rackconfig_source ? {
+    undef   => 'puppet:///modules/puppet/config.ru',
+    default => $rackconfig_source,
+  }
 
   $ssl_cert = "${ssl_dir}/certs/${hostname}.pem"
   $ssl_cert_key = "${ssl_dir}/private_keys/${hostname}.pem"

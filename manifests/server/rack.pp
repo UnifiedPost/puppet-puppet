@@ -13,24 +13,30 @@
 class puppet::server::rack {
 
   require puppet::server::params
+  $owner = $puppet::server::params::user
+  $group = $puppet::server::params::group
+  $app_root = $puppet::server::params::app_root
+  $doc_root = $puppet::server::params::doc_root
+  $rack_config_source = $puppet::server::params::rack_config_source
 
   File {
-    owner => $puppet::server::params::user,
+    owner => $user,
+    group => $group,
   }
 
-  file {$puppet::server::params::app_root:
+  file {$app_root:
     ensure => 'directory',
   }
-  file {"${puppet::server::params::doc_root}":
+  file {$doc_root:
     ensure  => 'directory',
-    require => File[$puppet::server::params::app_root],
+    require => File[$app_root],
   }
-  file {"${puppet::server::params::app_root}/tmp":
+  file {"${app_root}/tmp":
     ensure  => 'directory',
-    require => File[$puppet::server::params::app_root],
+    require => File[$app_root],
   }
-  file {"${puppet::server::params::app_root}/config.ru":
-    source => 'puppet:///modules/puppet/config.ru',
+  file {"${app_root}/config.ru":
+    source => $rack_config_source,
   }
 }
 
