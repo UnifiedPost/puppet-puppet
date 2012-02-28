@@ -68,8 +68,8 @@ class puppet::cron (
     }
   }
 
-  $croncommand = $command ? {
-    undef => "${sleepcmd} puppet agent --onetime",
+  $croncommand =  $command ? {
+    undef   => "${sleepcmd} puppet agent --onetime",
     default => "${sleepcmd}${command}",
   }
 
