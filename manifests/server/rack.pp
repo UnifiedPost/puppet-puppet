@@ -20,7 +20,7 @@ class puppet::server::rack {
   $rack_config_source = $puppet::server::params::rack_config_source
 
   File {
-    owner => $app_user,
+    owner => $app_owner,
     group => $app_group,
   }
 
