@@ -26,3 +26,9 @@
     report      = true
     pluginsync  = true
     environment = <%= environment %>
+<% if has_variable?("puppet::params::servername") and
+      scope.lookupvar("puppet::params::servername") != :undef and
+      scope.lookupvar("puppet::params::servername") != ''
+-%>
+    server      = <%= scope.lookupvar("puppet::params::servername") %>
+<% end -%>

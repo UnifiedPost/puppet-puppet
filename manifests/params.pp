@@ -43,7 +43,8 @@ class puppet::params (
   $passenger           = true,
   $apache_confdir      = undef,
   $approot             = undef,
-  $ssl_dir             = '/var/lib/puppet/ssl'
+  $ssl_dir             = '/var/lib/puppet/ssl',
+  $servername          = undef
 ) {
 
 ##  include foreman::params
