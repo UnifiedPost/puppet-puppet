@@ -5,7 +5,11 @@
 #
 # == Parameters:
 #
-# Most parameters are mirrored from puppet::params. These have been added:
+# $ca::                   Be the CA. Defaults to true.
+#
+# $passenger::            Run using passenger. Defaults to true.
+#
+# $apache_confdir::       Main apache configuration directory.
 #
 # $rackconfig_source::    The config.ru file to run as a rack application.
 #
