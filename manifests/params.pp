@@ -18,9 +18,7 @@
 # $environments::   Array of environments we need to setup.
 #                   Defaults to ['development','production' ]
 #
-# $approot::        Foreman application root. Defaults to <puppet dir>/rack.
-#
-# $ssldir::         Folder where to store ssl certs.
+# $ssl_dir::        Folder where to store ssl certs.
 #                   Defaults to /var/lib/puppet/ssl.
 #
 # == Todo:
