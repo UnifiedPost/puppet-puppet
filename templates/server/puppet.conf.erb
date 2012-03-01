@@ -17,7 +17,15 @@
     ssl_client_header = SSL_CLIENT_S_DN
     ssl_client_verify_header = SSL_CLIENT_VERIFY
 
+<% if has_variable?("puppet::server::params::environments") and
+      scope.lookupvar("puppet::server::params::environments") != :undef and
+      scope.lookupvar("puppet::server::params::environments") != '' and
+      scope.lookupvar("puppet::server::params::environments") != []
+-%>
 <% scope.lookupvar("puppet::server::params::environments").each do |env| -%>
 [<%= env %>]
     modulepath = <%= scope.lookupvar("puppet::server::params::modules_path") %>/<%= env %>:<%= scope.lookupvar("puppet::server::params::common_modules_path") %>
+<% end -%>
+<% else -%>
+    modulepath = <%= scope.lookupvar("puppet::server::params::modules_path") %>
 <% end -%>
