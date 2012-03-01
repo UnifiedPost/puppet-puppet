@@ -25,6 +25,8 @@
     localconfig = $vardir/localconfig
     report      = true
     pluginsync  = true
+    factsignore    = .svn CVS .git *.markdown .*.swp
+    pluginsignore  = .svn CVS .git *.markdown .*.swp
     environment = <%= environment %>
 <% if has_variable?("puppet::params::servername") and
       scope.lookupvar("puppet::params::servername") != :undef and
