@@ -22,12 +22,13 @@
 #
 class puppet::server::params (
   $user              = $puppet::params::user,
+  $group             = $puppet::params::group,
   $dir               = $puppet::params::dir,
   $modules           = undef,
   $common_modules    = undef,
   $environments      = $puppet::params::environments,
-  $ca                = $puppet::params::ca,
-  $passenger         = $puppet::params::passenger,
+  $ca                = true,
+  $passenger         = true,
   $apache_confdir    = undef,
   $approot           = undef,
   $rackconfig_source = undef,
@@ -47,14 +48,17 @@ class puppet::server::params (
     default => $common_modules,
   }
 
-  $apache_conf_dir = $apache_confdir ? {
-    undef   => $puppet::params::apache_conf_dir,
-    default => $apache_confdir,
+  if ($apache_confdir == undef) and ($passenger) {
+    include foreman::params
+    $apache_conf_dir = $foreman::params::apache_conf_dir
+  }
+  else {
+    $apache_conf_dir = $apache_confdir
   }
 
   $app_root = $approot ? {
-    undef   => $puppet::params::app_root,
-    default => $approot
+    undef   => "${dir}/rack",
+    default => $approot,
   }
   $doc_root = "${app_root}/public/"
 
@@ -65,7 +69,7 @@ class puppet::server::params (
 
   $hostname = $servername ? {
     undef   => $::fqdn,
-    default => $servername
+    default => $servername,
   }
 
   $ssl_cert      = "${ssl_dir}/certs/${hostname}.pem"

@@ -18,12 +18,6 @@
 # $environments::   Array of environments we need to setup.
 #                   Defaults to ['development','production' ]
 #
-# $ca::             Be the CA. Defaults to true.
-#
-# $passenger::      Run using passenger. Defaults to true.
-#
-# $apache_confdir:: Main apache configuration directory.
-#
 # $approot::        Foreman application root. Defaults to <puppet dir>/rack.
 #
 # $ssldir::         Folder where to store ssl certs.
@@ -35,14 +29,11 @@
 #
 class puppet::params (
   $user                = 'puppet',
+  $group               = 'puppet',
   $dir                 = '/etc/puppet',
   $modules             = undef,
   $common_modules      = undef,
   $environments        = [ 'development', 'production' ],
-  $ca                  = true,
-  $passenger           = true,
-  $apache_confdir      = undef,
-  $approot             = undef,
   $ssl_dir             = '/var/lib/puppet/ssl',
   $servername          = undef
 ) {
@@ -59,18 +50,7 @@ class puppet::params (
     undef   => "${modules_path}/common",
     default => $common_modules,
   }
-  if $apache_confdir == undef {
-    include foreman::params
-    $apache_conf_dir = $foreman::params::apache_conf_dir
-  }
-  else {
-    $apache_conf_dir = $apache_confdir
-  }
 
-  $app_root = $approot ? {
-    undef   => "${dir}/rack",
-    default => $approot,
-  }
 
   ### Puppet client service configuration ###
 
