@@ -42,7 +42,8 @@ class puppet::server::params (
   $ssl_dir           = $puppet::params::ssl_dir,
   $reports           = 'foreman',
   $servername        = $puppet::params::servername,
-  $autosign          = []
+  $autosign          = [],
+  $external_nodes    = true
 ){
   require puppet::params
 

@@ -2,8 +2,10 @@
 [master]
     autosign       = $confdir/autosign.conf { mode = 664 }
     reports        = <%= scope.lookupvar("puppet::server::params::reports") %>
+<% if scope.lookupvar("puppet::server::params::external_nodes") == true -%>
     external_nodes = /etc/puppet/node.rb
     node_terminus  = exec
+<% end -%>
     factsignore    = .svn CVS .git *.markdown .*.swp
     pluginsignore  = .svn CVS .git *.markdown .*.swp
     certname       = <%= scope.lookupvar("puppet::server::params::hostname") %>
