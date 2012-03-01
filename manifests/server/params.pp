@@ -15,6 +15,9 @@
 #
 # $servername::           Hostname to use when setting up the server.
 #
+# $autosign::             Array of lines that should be placed in the
+#                         autosign.conf. By default, this is empty.
+#
 # == Sample Usage:
 #
 #   class {'puppet::server::params':
@@ -38,7 +41,8 @@ class puppet::server::params (
   $rackconfig_source = undef,
   $ssl_dir           = $puppet::params::ssl_dir,
   $reports           = 'foreman',
-  $servername        = $puppet::params::servername
+  $servername        = $puppet::params::servername,
+  $autosign          = []
 ){
   require puppet::params
 
