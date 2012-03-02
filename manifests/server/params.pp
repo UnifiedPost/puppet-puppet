@@ -87,7 +87,8 @@ class puppet::server::params (
   $ssl_chain     = "${ssl_dir}/ca/ca_crt.pem"
   $ssl_ca_cert   = "${ssl_dir}/ca/ca_crt.pem"
   $ssl_ca_crl    = "${ssl_dir}/ca/ca_crl.pem"
-
+  $ssl_ca_pass   = "${ssl_dir}/ca/private/ca.pass"
+  $ssl_ca_key    = "${ssl_dir}/ca/ca_key.pem"
 
   ### Puppetmaster service configuration ###
 

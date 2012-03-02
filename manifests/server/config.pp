@@ -7,13 +7,18 @@ class puppet::server::config inherits puppet::config {
   $user                = $puppet::server::params::user
   $grp                 = $puppet::server::params::group
   $hostname            = $puppet::server::params::hostname
-  $ssl_cert            = $puppet::server::params::ssl_cert
   $puppet_dir          = $puppet::server::params::dir
   $environments        = $puppet::server::params::environments
   $passenger           = $puppet::server::params::passenger
   $modules_path        = $puppet::server::params::modules_path
   $common_modules_path = $puppet::server::params::common_modules_path
   $autosign            = $puppet::server::params::autosign
+  $ca                  = $puppet::server::params::ca
+  $ssl_cert            = $puppet::server::params::ssl_cert
+  $ssl_ca_crl          = $puppet::server::params::ssl_ca_crl
+  $ssl_ca_cert         = $puppet::server::params::ssl_ca_cert
+  $ssl_ca_pass         = $puppet::server::params::ssl_ca_pass
+  $ssl_ca_key          = $puppet::server::params::ssl_ca_key
 
   if $passenger  { include puppet::server::passenger }
 
@@ -41,6 +46,28 @@ class puppet::server::config inherits puppet::config {
     require => File["${puppet_dir}/puppet.conf"],
   }
 
+  if $ca {
+    file {$ssl_ca_crl:
+      ensure  => 'present',
+      mode    => '0664',
+      require => Exec['generate_ca_cert'],
+    }
+    file {$ssl_ca_cert:
+      ensure  => 'present',
+      mode    => '0660',
+      require => Exec['generate_ca_cert'],
+    }
+    file {$ssl_ca_pass:
+      ensure  => 'present',
+      mode    => '0660',
+      require => Exec['generate_ca_cert'],
+    }
+    file {$ssl_ca_key:
+      ensure  => 'present',
+      mode    => '0660',
+      require => Exec['generate_ca_cert'],
+    }
+  }
   # setup empty directories for our environments
   puppet::server::env {$environments: }
 
