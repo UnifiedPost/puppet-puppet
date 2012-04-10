@@ -4,7 +4,7 @@ Listen 8140
 	SSLEngine on
 	SSLCipherSuite SSLv2:-LOW:-EXPORT:RC4+RSA
 	SSLCertificateFile      <%= scope.lookupvar("puppet::server::params::ssl_cert") %>
-	SSLCertificateKeyFile   <%= scope.lookupvar("puppet::server::params::ssl_cert_key" %>
+	SSLCertificateKeyFile   <%= scope.lookupvar("puppet::server::params::ssl_cert_key") %>
 <% unless scope.lookupvar("puppet::server::params::ca") -%>
 	SSLCACertificateFile    <%= scope.lookupvar("puppet::server::params::ssl_noca_cert") %>
 <% else -%>
