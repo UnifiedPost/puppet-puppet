@@ -38,6 +38,10 @@ class puppet::params (
 
 ##  include foreman::params
 
+  $dirfix_permissions = [
+    '/var/lib/puppet/reports',
+  ]
+
 
   ## Setup defaults for vars that dont have a fixed str only default (undef).
   $modules_path = $modules ? {
