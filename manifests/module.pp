@@ -5,7 +5,7 @@
 class puppet::module {
 
   $id = 'unifiedpost-puppet-puppet'
-  $version = '0.1-dev'
+  $version = '0.1'
 
 }
 
