@@ -34,3 +34,6 @@
 -%>
     server      = <%= scope.lookupvar("puppet::params::servername") %>
 <% end -%>
+
+    prerun_command =  /usr/bin/yum clean all 
+
