@@ -33,7 +33,8 @@ class puppet::params (
   $common_modules      = undef,
   $environments        = [ 'development', 'production' ],
   $ssl_dir             = '/var/lib/puppet/ssl',
-  $servername          = undef
+  $servername          = undef,
+  $prerun_command      = undef
 ) {
 
 ##  include foreman::params

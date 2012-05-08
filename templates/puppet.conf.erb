@@ -35,5 +35,10 @@
     server      = <%= scope.lookupvar("puppet::params::servername") %>
 <% end -%>
 
-    prerun_command =  /usr/bin/yum clean all 
+<% if has_variable?("puppet::params::prerun_command") and
+    scope.lookupvar("puppet::params::prerun_command") != :undef and
+    scope.lookupvar("puppet::params::prerun_command") != ''
+-%>
+    prerun_command =  <%= scope.lookupvar("puppet::params::prerun_command") %>
+<% end -%>
 
