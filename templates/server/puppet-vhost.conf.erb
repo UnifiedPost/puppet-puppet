@@ -1,3 +1,8 @@
+### File managed with puppet ###
+## Served by:        '<%= scope.lookupvar('::servername') %>'
+## Module:           '<%= scope.to_hash['module_name'] %>'
+## Template source:  '<%= template_source %>'
+
 Listen 8140
 <VirtualHost *:8140>
 
@@ -11,7 +16,7 @@ Listen 8140
 	SSLCertificateChainFile <%= scope.lookupvar("puppet::server::params::ssl_chain") %>
 	SSLCACertificateFile    <%= scope.lookupvar("puppet::server::params::ssl_ca_cert") %>
 	# CRL checking should be enabled; if you have problems with Apache complaining about the CRL, disable the next line
-#	SSLCARevocationFile     <%= scope.lookupvar("puppet::server::params::ssl_ca_crl") %>
+  # SSLCARevocationFile     <%= scope.lookupvar("puppet::server::params::ssl_ca_crl") %>
 <% end -%>
 	SSLVerifyClient optional
 	SSLVerifyDepth  1
