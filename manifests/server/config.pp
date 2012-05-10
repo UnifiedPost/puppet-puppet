@@ -30,13 +30,14 @@ class puppet::server::config inherits puppet::config {
     ),
   }
 
-  file { "${puppet_dir}/autosign.conf":
-    ensure  => 'present',
-    mode    => '0664',
-    owner   => $user,
-    group   => $grp,
-    content => template('puppet/server/autosign.conf.erb'),
-
+  if $autosign {
+    file { "${puppet_dir}/autosign.conf":
+      ensure  => 'present',
+      mode    => '0664',
+      owner   => $user,
+      group   => $grp,
+      content => template('puppet/server/autosign.conf.erb'),
+    }
   }
 
   file { [$modules_path, $common_modules_path]:
