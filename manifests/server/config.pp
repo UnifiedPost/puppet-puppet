@@ -3,6 +3,7 @@
 # Configure and setup puppet and puppet master
 #
 class puppet::server::config inherits puppet::config {
+  require puppet::params
   require puppet::server::params
   $user                = $puppet::server::params::user
   $grp                 = $puppet::server::params::group
