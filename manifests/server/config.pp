@@ -24,7 +24,10 @@ class puppet::server::config inherits puppet::config {
   if $passenger  { include puppet::server::passenger }
 
   File ["${puppet_dir}/puppet.conf"] {
-    content => template('puppet/puppet.conf.erb', 'puppet/server/puppet.conf.erb'),
+    content => template(
+      'puppet/puppet.conf.erb',
+      'puppet/server/puppet.conf.erb'
+    ),
   }
 
   file { "${puppet_dir}/autosign.conf":
