@@ -16,7 +16,8 @@
 # $servername::           Hostname to use when setting up the server.
 #
 # $autosign::             Array of lines that should be placed in the
-#                         autosign.conf. By default, this is empty.
+#                         autosign.conf. If undefined, no file will be created
+#                         Defaults to undefined.
 #
 # == Sample Usage:
 #
@@ -42,7 +43,7 @@ class puppet::server::params (
   $ssl_dir           = $puppet::params::ssl_dir,
   $reports           = 'foreman',
   $servername        = $puppet::params::servername,
-  $autosign          = [],
+  $autosign          = undef,
   $external_nodes    = true
 ){
   require puppet::params
