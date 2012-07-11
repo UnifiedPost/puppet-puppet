@@ -44,7 +44,8 @@ class puppet::server::params (
   $reports           = 'foreman',
   $servername        = $puppet::params::servername,
   $autosign          = undef,
-  $external_nodes    = true
+  $external_nodes    = true,
+  $stored_config     = true
 ){
   require puppet::params
 
