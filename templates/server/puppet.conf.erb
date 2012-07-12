@@ -12,7 +12,16 @@
 
 
 <% if scope.lookupvar("puppet::server::params::stored_config") == true -%>
+
     # Storedconfig config will go in here 
+    #
+    storeconfigs = true
+    dbadapter = mysql
+    dbuser = <%= scope.lookupvar("puppet::server::params::stored_config_dbuser") %>
+    dbpassword = <%= scope.lookupvar("puppet::server::params::stored_config_password") %>
+    dbserver = <%= scope.lookupvar("puppet::server::params::stored_config_dbserver") %>
+    dbname = <%= scope.lookupvar("puppet::server::params::stored_config_dbname") %>
+
 <% end -%>
     factsignore    = .svn CVS .git *.markdown .*.swp
     pluginsignore  = .svn CVS .git *.markdown .*.swp

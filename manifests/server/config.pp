@@ -22,6 +22,7 @@ class puppet::server::config inherits puppet::config {
   $ssl_ca_key          = $puppet::server::params::ssl_ca_key
 
   if $passenger  { include puppet::server::passenger }
+  if $stored_config  { include puppet::server::stored_config }
 
   File ["${puppet_dir}/puppet.conf"] {
     content => template(
