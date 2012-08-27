@@ -22,6 +22,8 @@ class puppet::server::config inherits puppet::config {
   $ssl_ca_key          = $puppet::server::params::ssl_ca_key
   $stored_config       = $puppet::server::params::stored_config
   $manage_modules_path = $puppet::server::params::manage_modules_path
+  $manifest            = $puppet::server::params::manifest
+  $default_environment = $puppet::server::params::default_environment
 
   if $passenger  { include puppet::server::passenger }
   if $stored_config  { include puppet::server::storedconfig }

@@ -50,7 +50,9 @@ class puppet::server::params (
   $stored_config_password   = undef,
   $stored_config_dbserver   = undef,
   $stored_config_dbname     = 'puppet',
-  $manage_modules_path      = true
+  $manage_modules_path      = true,
+  $manifest                 = undef,
+  $default_environment      = undef
 ){
   require puppet::params
 

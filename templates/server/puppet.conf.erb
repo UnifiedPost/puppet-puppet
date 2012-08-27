@@ -10,6 +10,9 @@
     node_terminus  = exec
 <% end -%>
 
+<% if default_environment != :undef -%>
+    environment = <%= default_environment %>
+<% end -%>
 
 <% if scope.lookupvar("puppet::server::params::stored_config") == true -%>
 
@@ -41,6 +44,10 @@
       scope.lookupvar("puppet::server::params::environments") != '' and
       scope.lookupvar("puppet::server::params::environments") != []
 -%>
+<% if manifest != :undef -%>
+    manifest = <%= manifest %>
+<% end -%>
+
 <% scope.lookupvar("puppet::server::params::environments").each do |env| -%>
 [<%= env %>]
     modulepath = <%= scope.lookupvar("puppet::server::params::modules_path") %>/<%= env %>:<%= scope.lookupvar("puppet::server::params::common_modules_path") %>
@@ -48,4 +55,3 @@
 <% else -%>
     modulepath = <%= scope.lookupvar("puppet::server::params::modules_path") %>
 <% end -%>
-
