@@ -28,10 +28,23 @@
     # extension indicating the cache format is added automatically.
     # The default value is '$confdir/localconfig'.
     localconfig = $vardir/localconfig
+
+<% if has_variable?("puppet::params::report") and
+      scope.lookupvar("puppet::params::report") != :undef and
+      scope.lookupvar("puppet::params::report") != ''
+      if scope.lookupvar("puppet::params::report") == false
+-%>
+    report      = false
+<%    else %>
     report      = true
+<%    end -%>
+<% end -%>
+
     pluginsync  = true
+
     factsignore    = .svn CVS .git *.markdown .*.swp
     pluginsignore  = .svn CVS .git *.markdown .*.swp
+
     environment = <%= environment %>
 <% if has_variable?("puppet::params::servername") and
       scope.lookupvar("puppet::params::servername") != :undef and
