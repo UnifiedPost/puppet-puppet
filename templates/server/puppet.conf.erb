@@ -10,13 +10,13 @@
     node_terminus  = exec
 <% end -%>
 
-<% if default_environment != :undef -%>
+<% if default_environment != :undef and default_environment != '' -%>
     environment = <%= default_environment %>
 <% end -%>
 
 <% if scope.lookupvar("puppet::server::params::stored_config") == true -%>
 
-    # Storedconfig config will go in here 
+    # Storedconfig config will go in here
     #
     storeconfigs = true
     dbadapter = mysql
