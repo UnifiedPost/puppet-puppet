@@ -9,6 +9,23 @@
     external_nodes = /etc/puppet/node.rb
     node_terminus  = exec
 <% end -%>
+
+<% if default_environment != :undef -%>
+    environment = <%= default_environment %>
+<% end -%>
+
+<% if scope.lookupvar("puppet::server::params::stored_config") == true -%>
+
+    # Storedconfig config will go in here 
+    #
+    storeconfigs = true
+    dbadapter = mysql
+    dbuser = <%= scope.lookupvar("puppet::server::params::stored_config_dbuser") %>
+    dbpassword = <%= scope.lookupvar("puppet::server::params::stored_config_password") %>
+    dbserver = <%= scope.lookupvar("puppet::server::params::stored_config_dbserver") %>
+    dbname = <%= scope.lookupvar("puppet::server::params::stored_config_dbname") %>
+
+<% end -%>
     factsignore    = .svn CVS .git *.markdown .*.swp
     pluginsignore  = .svn CVS .git *.markdown .*.swp
     certname       = <%= scope.lookupvar("puppet::server::params::hostname") %>
@@ -27,6 +44,10 @@
       scope.lookupvar("puppet::server::params::environments") != '' and
       scope.lookupvar("puppet::server::params::environments") != []
 -%>
+<% if manifest != :undef -%>
+    manifest = <%= manifest %>
+<% end -%>
+
 <% scope.lookupvar("puppet::server::params::environments").each do |env| -%>
 [<%= env %>]
     modulepath = <%= scope.lookupvar("puppet::server::params::modules_path") %>/<%= env %>:<%= scope.lookupvar("puppet::server::params::common_modules_path") %>

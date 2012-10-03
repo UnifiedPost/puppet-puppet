@@ -29,22 +29,30 @@
 # * Remove params that are not server specific.
 #
 class puppet::server::params (
-  $user              = $puppet::params::user,
-  $group             = $puppet::params::group,
-  $dir               = $puppet::params::dir,
-  $modules           = undef,
-  $common_modules    = undef,
-  $environments      = $puppet::params::environments,
-  $ca                = true,
-  $passenger         = true,
-  $apache_confdir    = undef,
-  $approot           = undef,
-  $rackconfig_source = undef,
-  $ssl_dir           = $puppet::params::ssl_dir,
-  $reports           = 'foreman',
-  $servername        = $puppet::params::servername,
-  $autosign          = undef,
-  $external_nodes    = true
+  $user                     = $puppet::params::user,
+  $group                    = $puppet::params::group,
+  $dir                      = $puppet::params::dir,
+  $modules                  = undef,
+  $common_modules           = undef,
+  $environments             = $puppet::params::environments,
+  $ca                       = true,
+  $passenger                = true,
+  $apache_confdir           = undef,
+  $approot                  = undef,
+  $rackconfig_source        = undef,
+  $ssl_dir                  = $puppet::params::ssl_dir,
+  $reports                  = 'foreman',
+  $servername               = $puppet::params::servername,
+  $autosign                 = undef,
+  $external_nodes           = true,
+  $stored_config            = true,
+  $stored_config_dbuser     = 'puppet',
+  $stored_config_password   = undef,
+  $stored_config_dbserver   = undef,
+  $stored_config_dbname     = 'puppet',
+  $manage_modules_path      = true,
+  $manifest                 = undef,
+  $default_environment      = undef
 ){
   require puppet::params
 
