@@ -33,6 +33,7 @@ class puppet::server::config inherits puppet::config {
       'puppet/puppet.conf.erb',
       'puppet/server/puppet.conf.erb'
     ),
+    require => Package['puppet-server'],
   }
 
   if $autosign {
