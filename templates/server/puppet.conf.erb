@@ -39,14 +39,15 @@
     ssl_client_header = SSL_CLIENT_S_DN
     ssl_client_verify_header = SSL_CLIENT_VERIFY
 
+<% if manifest != :undef -%>
+    manifest = <%= manifest %>
+<% end -%>
+
 <% if has_variable?("puppet::server::params::environments") and
       scope.lookupvar("puppet::server::params::environments") != :undef and
       scope.lookupvar("puppet::server::params::environments") != '' and
       scope.lookupvar("puppet::server::params::environments") != []
 -%>
-<% if manifest != :undef -%>
-    manifest = <%= manifest %>
-<% end -%>
 
 <% scope.lookupvar("puppet::server::params::environments").each do |env| -%>
 [<%= env %>]
